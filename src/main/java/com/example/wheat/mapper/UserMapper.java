@@ -15,12 +15,11 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper extends BaseMapper<User> {
 
 
-
     @Select("SELECT count(1) FROM user where username = #{email,jdbcType=VARCHAR}")
     int countByEmail(String email);
 
-//    @Select("SELECT count(1) FROM user where username = #{phone,jdbcType=VARCHAR}")
-//    int countByPhone(String phone);
+    @Select("SELECT count(1) FROM user where username = #{phone,jdbcType=VARCHAR}")
+    int countByPhone(String phone);
 
     @Select("SELECT count(1) FROM user where username = #{username,jdbcType=VARCHAR}")
     int countByUsername(String username);

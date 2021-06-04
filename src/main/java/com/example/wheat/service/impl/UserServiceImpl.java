@@ -30,17 +30,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public void register(User user) {
+
         //用户名username不能重复
         int countByUsername = userMapper.countByUsername(user.getUsername());
         if(countByUsername > 0 ){
             throw new RuntimeException("该用户已注册");
         }
 
-//        //手机号码不能重复
-//        int countByPhone = userMapper.countByPhone(user.getPhone());
-//        if(countByPhone > 0 ){
-//            throw new RuntimeException("该用户已注册");
-//        }
+        //手机号码不能重复
+        int countByPhone = userMapper.countByPhone(user.getPhone());
+        if(countByPhone > 0 ){
+            throw new RuntimeException("该用户已注册");
+        }
 
         //邮箱不能重复
         int countByEmail = userMapper.countByEmail(user.getEmail());
@@ -49,7 +50,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         //MD5加密密码Spring自带
-        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes(StandardCharsets.UTF_8)));
+        user.setPassword(DigestUtils.md5DigestAsHex(
+                user.getPassword().getBytes(StandardCharsets.UTF_8)));
 
         //写入数据库
         int resqltCount = userMapper.insert(user);

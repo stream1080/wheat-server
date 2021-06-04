@@ -2,8 +2,6 @@ package com.example.wheat.enums;
 
 import lombok.Getter;
 
-import javax.management.relation.Role;
-
 @Getter
 public enum RoleEnum {
     ADMIN(0),
