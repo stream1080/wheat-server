@@ -8,7 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UserForm {
+public class UserRegisterForm {
 
     //@NotEmple //判断空
     //@NotNull //判断null

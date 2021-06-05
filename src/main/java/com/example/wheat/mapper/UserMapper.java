@@ -24,4 +24,7 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("SELECT count(1) FROM user where username = #{username,jdbcType=VARCHAR}")
     int countByUsername(String username);
 
+    @Select("SELECT * FROM user where username = #{username,jdbcType=VARCHAR}")
+    User seletByUsername(String username);
+
 }

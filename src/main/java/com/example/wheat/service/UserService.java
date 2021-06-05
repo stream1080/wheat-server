@@ -20,7 +20,16 @@ public interface UserService extends IService<User> {
      * 注册
      * @param user
      */
-    ResponseVo register(User user);
+    ResponseVo<User> register(User user);
+
+
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
+    ResponseVo<User> login(String username, String password);
 
     List<User> getUserList();
 

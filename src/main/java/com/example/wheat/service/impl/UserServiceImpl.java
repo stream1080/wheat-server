@@ -14,8 +14,7 @@ import org.springframework.util.DigestUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import static com.example.wheat.enums.ResponseEnum.EMAIL_EXIST;
-import static com.example.wheat.enums.ResponseEnum.USWENAME_EXIST;
+import static com.example.wheat.enums.ResponseEnum.*;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * @param user
      */
     @Override
-    public ResponseVo register(User user) {
+    public ResponseVo<User> register(User user) {
 //        error();
         //用户名username不能重复
         int countByUsername = userMapper.countByUsername(user.getUsername());
@@ -74,9 +73,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return ResponseVo.success();
     }
 
-    private void error(){
-        throw new RuntimeException("意外错误");
+    @Override
+    public ResponseVo<User> login(String username, String password) {
+        User user = userMapper.seletByUsername(username);
+        if (user == null) {
+            //用户名不存在
+            return ResponseVo.error(USERNAME_OR_PASSWORD_ERROR);
+        }
+        if(user.getPassword().equalsIgnoreCase(DigestUtils.md5DigestAsHex(
+                user.getPassword().getBytes(StandardCharsets.UTF_8)))){
+            //密码错误(返回：用户名或密码错误)
+            return ResponseVo.error(USERNAME_OR_PASSWORD_ERROR);
+        }
+
+        user.setPassword("");//把密码去掉
+        return ResponseVo.success(user);
     }
+
+//    private void error(){
+//        throw new RuntimeException("意外错误");
+//    }
 
 
     public List<User> getUserList() {
