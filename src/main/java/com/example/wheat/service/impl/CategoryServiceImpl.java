@@ -1,7 +1,6 @@
 package com.example.wheat.service.impl;
 
 import com.example.wheat.entity.Category;
-import com.example.wheat.entity.User;
 import com.example.wheat.mapper.CategoryMapper;
 import com.example.wheat.service.CategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.wheat.conts.WheatConst.ROOT_PARENT_ID;
 
@@ -30,7 +29,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Autowired
     private CategoryMapper categoryMapper;
-
 
     @Override
     public ResponseVo<List<CategoryVo>> selectAll() {
@@ -69,6 +67,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                    CategoryVo subCategoryVo = category2CategoryVo(category);
                     subCategoryVoList.add(subCategoryVo);
                 }
+
+                //排序，数值越大，优先级越高
+                subCategoryVoList.sort(Comparator.comparing(CategoryVo::getSortOrder).reversed());
                 categoryVo.setSubCategories(subCategoryVoList);
 
                 findSubCategory(subCategoryVoList,categories);
