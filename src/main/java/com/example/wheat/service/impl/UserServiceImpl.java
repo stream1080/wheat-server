@@ -1,5 +1,6 @@
 package com.example.wheat.service.impl;
 
+import com.example.wheat.entity.Category;
 import com.example.wheat.entity.User;
 import com.example.wheat.enums.ResponseEnum;
 import com.example.wheat.enums.RoleEnum;
@@ -93,6 +94,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 //    private void error(){
 //        throw new RuntimeException("意外错误");
 //    }
+
 
 
     public List<User> getUserList() {

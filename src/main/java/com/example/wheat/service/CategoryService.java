@@ -2,6 +2,10 @@ package com.example.wheat.service;
 
 import com.example.wheat.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.wheat.vo.CategoryVo;
+import com.example.wheat.vo.ResponseVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CategoryService extends IService<Category> {
 
+    ResponseVo<List<CategoryVo>> selectAll();
 }
