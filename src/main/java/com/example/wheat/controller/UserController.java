@@ -57,7 +57,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseVo<User> login(@Valid @RequestBody UserLoginForm userLoginForm,
                                   BindingResult bindingResult,
-                                  HttpServletRequest session){
+                                  HttpSession session){
         if (bindingResult.hasErrors()){
             log.error("注册参数有误,{} {}",
                     bindingResult.getFieldError().getField(),
@@ -69,19 +69,33 @@ public class UserController {
 
         //设置Session
         session.setAttribute(WheatConst.CURRENT_USER,userResponseVo.getData());
+        log.info("login sessionId= {}",session.getId());
 
         return userResponseVo;
     }
 
+
+    //改进版：token+redis分布式session
+    //cookies 跨越
     @GetMapping("/getuser")
     public ResponseVo<User> userInfo(HttpSession session)  {
+        log.info("getuser sessionId= {}",session.getId());
         User user = (User)session.getAttribute(WheatConst.CURRENT_USER);
-        log.info(user.getUsername());
         if (user == null) {
             return ResponseVo.error(NEED_LOGIN);
         }
-        log.info(user.getUsername());
         return ResponseVo.success(user);
+    }
+
+    @PostMapping("/logout")
+    public ResponseVo<User> logout(HttpSession session)  {
+        log.info("getuser sessionId= {}",session.getId());
+        User user = (User)session.getAttribute(WheatConst.CURRENT_USER);
+        if (user == null) {
+            return ResponseVo.error(NEED_LOGIN);
+        }
+        session.removeAttribute(WheatConst.CURRENT_USER);
+        return ResponseVo.success();
     }
 
 }
