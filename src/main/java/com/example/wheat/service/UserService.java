@@ -2,6 +2,7 @@ package com.example.wheat.service;
 
 import com.example.wheat.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.wheat.vo.ResponseVo;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface UserService extends IService<User> {
      * 注册
      * @param user
      */
-    void register(User user);
+    ResponseVo register(User user);
 
     List<User> getUserList();
 

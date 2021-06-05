@@ -6,6 +6,7 @@ import com.example.wheat.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ class WheatApplicationTests {
     private UserService userService;
 
     @Test
+    @Transactional
     void contextLoads() {
         User user = new User();
         user.setUsername("jack");

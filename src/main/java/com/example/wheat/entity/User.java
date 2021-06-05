@@ -59,4 +59,6 @@ public class User implements Serializable {
     @TableLogic
     private Integer deleted;
 
+    public User() {
+    }
 }
