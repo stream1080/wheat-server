@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 import static com.example.wheat.enums.ResponseEnum.ERROR;
+import static com.example.wheat.enums.ResponseEnum.NEED_LOGIN;
 
 @ControllerAdvice
 public class RuntimeExceptionHandler {
@@ -18,5 +19,12 @@ public class RuntimeExceptionHandler {
 //    @ResponseStatus(HttpStatus.FORBIDDEN)
     public ResponseVo handle(RuntimeException e){
         return ResponseVo.error(ERROR,e.getMessage());
+    }
+
+
+    @ExceptionHandler(UserLoginException.class)
+    @ResponseBody
+    public ResponseVo userLoginException(){
+        return ResponseVo.error(NEED_LOGIN);
     }
 }
