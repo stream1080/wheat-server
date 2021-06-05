@@ -6,6 +6,7 @@ import com.example.wheat.vo.CategoryVo;
 import com.example.wheat.vo.ResponseVo;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -18,4 +19,6 @@ import java.util.List;
 public interface CategoryService extends IService<Category> {
 
     ResponseVo<List<CategoryVo>> selectAll();
+
+    void findSubCategoryId(Integer id, Set<Integer> resultSet);
 }

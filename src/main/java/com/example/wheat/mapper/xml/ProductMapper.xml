@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.wheat.mapper.ProductMapper">
 
+    <select id="selectByCategoryIdSet" resultType="com.example.wheat.entity.Product">
+        SELECT * FROM product where status = 1
+        <if test="categoryIdSet != null">
+            and category_id in
+            <foreach collection="categoryIdSet" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
 </mapper>

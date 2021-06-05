@@ -2,6 +2,11 @@ package com.example.wheat.service;
 
 import com.example.wheat.entity.Product;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.wheat.vo.ProductVo;
+import com.example.wheat.vo.ResponseVo;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProductService extends IService<Product> {
 
+    ResponseVo<List<ProductVo>> list(Integer categoryId,Integer pageNum,Integer pageSize);
 }
