@@ -37,4 +37,17 @@ public class CartProductVo {
 
     @ApiModelProperty(value = "商品是否选中")
     private Boolean selected;
+
+    public CartProductVo(Integer id, Integer quantity, String name, String subtitle, String mainImage, BigDecimal price, BigDecimal totalPrice, Integer status, Integer stock, Boolean selected) {
+        this.id = id;
+        this.quantity = quantity;
+        this.name = name;
+        this.subtitle = subtitle;
+        this.mainImage = mainImage;
+        this.price = price;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.stock = stock;
+        this.selected = selected;
+    }
 }

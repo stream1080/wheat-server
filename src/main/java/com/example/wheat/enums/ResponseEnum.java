@@ -24,7 +24,9 @@ public enum ResponseEnum {
 
     PRODUCT_NOT_EXIST(13,"商品不存在"),
 
-    PRODUCT_STOCK_ERROR(14,"库存错误")
+    PRODUCT_STOCK_ERROR(14,"库存错误"),
+
+    CART_PRODUCT_STOCK_ERROR(15,"购物车无此商品")
 
     ;
 

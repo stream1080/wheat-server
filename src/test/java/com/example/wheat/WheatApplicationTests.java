@@ -5,14 +5,17 @@ import com.example.wheat.entity.Cart;
 import com.example.wheat.entity.User;
 import com.example.wheat.enums.ResponseEnum;
 import com.example.wheat.form.CartAddForm;
+import com.example.wheat.form.CartUptadtForm;
 import com.example.wheat.mapper.UserMapper;
 import com.example.wheat.service.CartService;
 import com.example.wheat.service.CategoryService;
 import com.example.wheat.service.ProductService;
 import com.example.wheat.service.UserService;
+import com.example.wheat.vo.CartVo;
 import com.example.wheat.vo.ProductVo;
 import com.example.wheat.vo.ResponseVo;
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +92,20 @@ class WheatApplicationTests {
         cartAddForm.setProductId(3);
         cartAddForm.setSelected(true);
         cartService.add(1,cartAddForm);
+    }
+
+    @Test
+    public void testCart(){
+        ResponseVo<CartVo> list = cartService.list(1);
+        log.info("list={}",list);
+    }
+
+    @Test
+    public void testUpdate(){
+        CartUptadtForm form = new CartUptadtForm();
+        form.setQuantity(10);
+        ResponseVo<CartVo> responseVo = cartService.update(1,3,form);
+        log.info("list={}",new Gson().toJson(responseVo));
     }
 
 }
