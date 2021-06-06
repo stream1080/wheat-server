@@ -2,8 +2,10 @@ package com.example.wheat.service;
 
 import com.example.wheat.entity.Product;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.wheat.vo.ProductDetailVo;
 import com.example.wheat.vo.ProductVo;
 import com.example.wheat.vo.ResponseVo;
+import com.github.pagehelper.PageInfo;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -18,5 +20,7 @@ import java.util.List;
  */
 public interface ProductService extends IService<Product> {
 
-    ResponseVo<List<ProductVo>> list(Integer categoryId,Integer pageNum,Integer pageSize);
+    ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize);
+
+    ResponseVo<ProductDetailVo> detail(Integer ProductId);
 }

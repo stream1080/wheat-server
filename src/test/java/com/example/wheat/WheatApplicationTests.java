@@ -1,12 +1,16 @@
 package com.example.wheat;
 
+import com.baomidou.mybatisplus.extension.api.Assert;
 import com.example.wheat.entity.User;
+import com.example.wheat.enums.ResponseEnum;
 import com.example.wheat.mapper.UserMapper;
 import com.example.wheat.service.CategoryService;
 import com.example.wheat.service.ProductService;
 import com.example.wheat.service.UserService;
+import com.example.wheat.vo.ProductVo;
+import com.example.wheat.vo.ResponseVo;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Select;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -58,10 +62,18 @@ class WheatApplicationTests {
     @Test
     @Transactional
     void productTest() {
-        productService.list(3,1,1);
+        ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
 
 //        List<User> users = userMapper.selectList(null);
-//        users.forEach(System.out::println);
+//        responseVo.forEach(System.out::println);
+    }
+
+    @Test
+    @Transactional
+    void detail() {
+        ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
+//        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseVo.getStatus());
+        log.info("detail={}",responseVo.getStatus());
     }
 
 }
