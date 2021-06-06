@@ -6,16 +6,16 @@ import com.example.wheat.entity.User;
 import com.example.wheat.enums.ResponseEnum;
 import com.example.wheat.form.CartAddForm;
 import com.example.wheat.form.CartUptadtForm;
+import com.example.wheat.form.ShippingForm;
+import com.example.wheat.mapper.ShippingMapper;
 import com.example.wheat.mapper.UserMapper;
-import com.example.wheat.service.CartService;
-import com.example.wheat.service.CategoryService;
-import com.example.wheat.service.ProductService;
-import com.example.wheat.service.UserService;
+import com.example.wheat.service.*;
 import com.example.wheat.vo.CartVo;
 import com.example.wheat.vo.ProductVo;
 import com.example.wheat.vo.ResponseVo;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
+import com.sun.deploy.net.MessageHeader;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @SpringBootTest
@@ -43,6 +44,11 @@ class WheatApplicationTests {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ShippingService shippingService;;
+
+
 
 //    @Test
 //    @Transactional
@@ -113,6 +119,24 @@ class WheatApplicationTests {
         ResponseVo<CartVo> responseVo = cartService.delete(1,3);
         log.info("list={}",new Gson().toJson(responseVo));
     }
+
+    @Test
+    public void addShipping() {
+        ShippingForm form = new ShippingForm();
+        form.setReceiverName ("廖师兄");
+        form.setReceiverAddress ("慕课网");
+        form.setReceiverCity("北京");
+        form.setReceiverMobile( "18812345678");
+        form.setReceiverPhone( "010123456");
+        form.setReceiverProvince("北京");
+        form.setReceiverDistrict("海淀区") ;
+        form.setReceiverZip( "000000") ;
+
+        ResponseVo<Map<String, Integer>> responseVo = shippingService.add(1,form);
+        log.info("result={}",responseVo);
+//        Assert.assertEquals(ResponseEnum. SUCCESS. getCode(), responseVo. getStatus());
+    }
+
 
 
 }
