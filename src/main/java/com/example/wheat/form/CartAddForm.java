@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class CartAddForm {
 
     @NotNull
-    private Integer username;
+    private Integer productId;
 
     @NotNull
     private Boolean selected = true;

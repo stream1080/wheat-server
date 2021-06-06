@@ -1,9 +1,12 @@
 package com.example.wheat;
 
 import com.baomidou.mybatisplus.extension.api.Assert;
+import com.example.wheat.entity.Cart;
 import com.example.wheat.entity.User;
 import com.example.wheat.enums.ResponseEnum;
+import com.example.wheat.form.CartAddForm;
 import com.example.wheat.mapper.UserMapper;
+import com.example.wheat.service.CartService;
 import com.example.wheat.service.CategoryService;
 import com.example.wheat.service.ProductService;
 import com.example.wheat.service.UserService;
@@ -34,6 +37,9 @@ class WheatApplicationTests {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private CartService cartService;
 
 //    @Test
 //    @Transactional
@@ -74,6 +80,15 @@ class WheatApplicationTests {
         ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
 //        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseVo.getStatus());
         log.info("detail={}",responseVo.getStatus());
+    }
+
+
+    @Test
+    void addredis() {
+        CartAddForm cartAddForm = new CartAddForm();
+        cartAddForm.setProductId(3);
+        cartAddForm.setSelected(true);
+        cartService.add(1,cartAddForm);
     }
 
 }
