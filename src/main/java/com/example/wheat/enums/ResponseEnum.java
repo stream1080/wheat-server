@@ -26,7 +26,9 @@ public enum ResponseEnum {
 
     PRODUCT_STOCK_ERROR(14,"库存错误"),
 
-    CART_PRODUCT_STOCK_ERROR(15,"购物车无此商品")
+    CART_PRODUCT_STOCK_ERROR(15,"购物车无此商品"),
+
+    DELETE_SHIPPING_FAIL(16,"删除收货地址失败")
 
     ;
 

@@ -26,22 +26,23 @@ public interface ShippingService extends IService<Shipping> {
      */
     ResponseVo<Map<String,Integer>> add(Integer uid, ShippingForm form);
 
+
     /**
      * 删除收货地址
      * @param uid
-     * @param form
+     * @param shippingId
      * @return
      */
-    ResponseVo delete(Integer uid, ShippingForm form);
+    ResponseVo delete(Integer uid, Integer shippingId);
 
     /**
      * 更新收货地址
      * @param uid
-     * @param ShippingId
+     * @param shippingId
      * @param form
      * @return
      */
-    ResponseVo update(Integer uid, Integer ShippingId , ShippingForm form);
+    ResponseVo update(Integer uid, Integer shippingId , ShippingForm form);
 
     /**
      * 查询收货地址

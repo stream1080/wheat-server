@@ -7,12 +7,14 @@ import com.example.wheat.mapper.ShippingMapper;
 import com.example.wheat.service.ShippingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.wheat.vo.ResponseVo;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,17 +46,32 @@ public class ShippingServiceImpl extends ServiceImpl<ShippingMapper, Shipping> i
     }
 
     @Override
-    public ResponseVo delete(Integer uid, ShippingForm form) {
-        return null;
+    public ResponseVo delete(Integer uid, Integer shippingId) {
+        int row = shippingMapper.deleteByIdAndByUid(uid,shippingId);
+        if(row==0){
+            return ResponseVo. error(ResponseEnum.DELETE_SHIPPING_FAIL);
+        }
+        return ResponseVo. success();
     }
 
     @Override
-    public ResponseVo update(Integer uid, Integer ShippingId, ShippingForm form) {
-        return null;
+    public ResponseVo update(Integer uid, Integer shippingId, ShippingForm form) {
+        Shipping shipping = new Shipping();
+        BeanUtils.copyProperties(form,shipping);
+        shipping.setUserId(uid);
+        shipping.setId(shippingId) ;
+        int row = shippingMapper.updateById(shipping);
+        if(row==0){
+            return ResponseVo.error(ResponseEnum.ERROR) ;
+        }
+        return ResponseVo.success();
     }
 
     @Override
     public ResponseVo<PageInfo> list(Integer uid, Integer pageNum, Integer pageSize) {
-        return null;
+        PageHelper.startPage(pageNum,pageSize);
+        List<Shipping> shippings = shippingMapper.selectByUid(uid);
+        PageInfo pageInfo = new PageInfo(shippings);
+        return ResponseVo.success(pageInfo);
     }
 }

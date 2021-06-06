@@ -7,6 +7,8 @@ import com.example.wheat.form.UserLoginForm;
 import com.example.wheat.form.UserRegisterForm;
 import com.example.wheat.service.UserService;
 import com.example.wheat.vo.ResponseVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,14 @@ import static com.example.wheat.enums.ResponseEnum.PARAM_ERROR;
 @RestController
 @RequestMapping("/user")
 @Slf4j
+@Api(tags = "用户模块API")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping(value="/register")
+    @ApiOperation(value = "用户注册")
     public Object register(@Valid @RequestBody UserRegisterForm userRegisterForm, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
@@ -55,6 +59,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @ApiOperation(value = "用户登录")
     public ResponseVo<User> login(@Valid @RequestBody UserLoginForm userLoginForm,
                                   BindingResult bindingResult,
                                   HttpSession session){
@@ -78,6 +83,7 @@ public class UserController {
     //改进版：token+redis分布式session
     //cookies 跨越
     @GetMapping("/getuser")
+    @ApiOperation(value = "获取用户信息")
     public ResponseVo<User> userInfo(HttpSession session)  {
         log.info("getuser sessionId= {}",session.getId());
         User user = (User)session.getAttribute(WheatConst.CURRENT_USER);
@@ -88,6 +94,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
+    @ApiOperation(value = "退出登录")
     public ResponseVo<User> logout(HttpSession session)  {
         log.info("getuser sessionId= {}",session.getId());
         User user = (User)session.getAttribute(WheatConst.CURRENT_USER);
