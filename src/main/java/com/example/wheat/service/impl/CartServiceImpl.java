@@ -175,4 +175,49 @@ public class CartServiceImpl implements CartService {
         opsForHash.delete(redisKey, String.valueOf(productId));
         return null;
     }
+
+    @Override
+    public ResponseVo<CartVo> selectAll(Integer uid) {
+        HashOperations<String,String,String> opsForHash = redisTemplate.opsForHash();
+        String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
+        Map<String,String> entries = opsForHash.entries(redisKey);
+        for (Cart cart : listForCart(uid)){
+            cart.setSelected(true);
+            opsForHash.put(redisKey,String.valueOf(cart.getId()),gson.toJson(cart));
+        }
+        return list(uid);
+    }
+
+    @Override
+    public ResponseVo<CartVo> unSelectAll(Integer uid) {
+        HashOperations<String,String,String> opsForHash = redisTemplate.opsForHash();
+        String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
+        Map<String,String> entries = opsForHash.entries(redisKey);
+        for (Cart cart : listForCart(uid)){
+            cart.setSelected(false);
+            opsForHash.put(redisKey,String.valueOf(cart.getId()),gson.toJson(cart));
+        }
+        return list(uid);
+    }
+
+    @Override
+    public ResponseVo<Integer> sum(Integer uid) {
+        Integer sum = listForCart(uid).stream()
+                .map(Cart::getQuantity)
+                .reduce(0,Integer::sum);
+        return ResponseVo.success(sum);
+    }
+
+
+    private List<Cart> listForCart(Integer uid){
+        HashOperations<String,String,String> opsForHash = redisTemplate.opsForHash();
+        String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
+        Map<String,String> entries = opsForHash.entries(redisKey);
+
+        List<Cart> cartList = new ArrayList<>();
+        for (Map.Entry<String,String> entry : entries.entrySet()){
+            cartList.add(gson.fromJson(entry.getValue(),Cart.class));
+        }
+        return cartList;
+    }
 }

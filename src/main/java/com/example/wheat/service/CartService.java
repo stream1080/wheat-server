@@ -6,6 +6,7 @@ import com.example.wheat.form.CartAddForm;
 import com.example.wheat.form.CartUptadtForm;
 import com.example.wheat.vo.CartVo;
 import com.example.wheat.vo.ResponseVo;
+import io.swagger.models.auth.In;
 
 /**
  * <p>
@@ -48,5 +49,26 @@ public interface CartService {
      * @return
      */
     ResponseVo<CartVo> delete(Integer uid, Integer productId);
+
+    /**
+     * 全选
+     * @param uid
+     * @return
+     */
+    ResponseVo<CartVo> selectAll(Integer uid);
+
+    /**
+     * 全不选
+     * @param uid
+     * @return
+     */
+    ResponseVo<CartVo> unSelectAll(Integer uid);
+
+    /**
+     * 商品总和
+     * @param uid
+     * @return
+     */
+    ResponseVo<Integer> sum(Integer uid);
 
 }
