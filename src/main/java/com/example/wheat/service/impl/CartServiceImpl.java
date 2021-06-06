@@ -162,4 +162,17 @@ public class CartServiceImpl implements CartService {
         opsForHash.put(redisKey, String.valueOf(productId), gson.toJson(cart));
         return list(uid);
     }
+
+    @Override
+    public ResponseVo<CartVo> delete(Integer uid, Integer productId) {
+        HashOperations<String,String,String> opsForHash = redisTemplate.opsForHash();
+        String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
+        String value = opsForHash.get(redisKey,String.valueOf(productId));
+        if (StringUtils.isEmpty(value)) {
+            //没有该商品，报错
+            return ResponseVo.error(ResponseEnum.CART_PRODUCT_STOCK_ERROR);
+        }
+        opsForHash.delete(redisKey, String.valueOf(productId));
+        return null;
+    }
 }

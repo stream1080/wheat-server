@@ -41,4 +41,12 @@ public interface CartService {
      */
     ResponseVo<CartVo> update(Integer uid, Integer productId, CartUptadtForm cartUptadtForm);
 
+    /**
+     * 删除购物车商品
+     * @param uid
+     * @param productId
+     * @return
+     */
+    ResponseVo<CartVo> delete(Integer uid, Integer productId);
+
 }

@@ -108,4 +108,11 @@ class WheatApplicationTests {
         log.info("list={}",new Gson().toJson(responseVo));
     }
 
+    @Test
+    public void testDelete(){
+        ResponseVo<CartVo> responseVo = cartService.delete(1,3);
+        log.info("list={}",new Gson().toJson(responseVo));
+    }
+
+
 }
