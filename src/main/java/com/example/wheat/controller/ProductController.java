@@ -7,7 +7,9 @@ import com.example.wheat.vo.CategoryVo;
 import com.example.wheat.vo.ProductDetailVo;
 import com.example.wheat.vo.ResponseVo;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +29,13 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product")
-@ApiModel(value="商品模块API", description="")
+@Api(tags = "商品API") // 类文档显示内容
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
+    @ApiOperation(value = "分页查询商品列表") // 接口文档显示内容
     @GetMapping("/list")
     public ResponseVo<PageInfo> list(@RequestParam(required = false) Integer categoryId,
                                      @RequestParam(required = false,defaultValue = "1") Integer pageNum,
@@ -41,6 +44,7 @@ public class ProductController {
         return productService.list(categoryId,pageNum,pageSize);
     }
 
+    @ApiOperation(value = "根据Id查询商品信息") // 接口文档显示内容
     @GetMapping("/getproductbyid")
     public ResponseVo<ProductDetailVo> detail(Integer productId){
         return productService.detail(productId);
