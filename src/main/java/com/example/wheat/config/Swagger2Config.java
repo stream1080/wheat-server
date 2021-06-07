@@ -33,9 +33,9 @@ public class Swagger2Config {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("项目API") // 标题
+                .title("小麦商城-项目API文档") // 标题
                 .description("整个项目的各个API") // 描述
-                .termsOfServiceUrl("http://www.baidu.com") // 服务网址，一般写公司地址
+                .termsOfServiceUrl("http://www.mi.com") // 服务网址，一般写公司地址
                 .version("1.0") // 版本
                 .build();
     }

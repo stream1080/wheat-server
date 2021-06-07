@@ -209,7 +209,7 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    private List<Cart> listForCart(Integer uid){
+    public List<Cart> listForCart(Integer uid){
         HashOperations<String,String,String> opsForHash = redisTemplate.opsForHash();
         String redisKey = String.format(CART_REDIS_KEY_TEMPLATE,uid);
         Map<String,String> entries = opsForHash.entries(redisKey);

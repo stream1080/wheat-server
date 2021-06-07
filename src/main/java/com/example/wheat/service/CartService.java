@@ -1,12 +1,15 @@
 package com.example.wheat.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.wheat.entity.Cart;
 import com.example.wheat.entity.OrderInfo;
 import com.example.wheat.form.CartAddForm;
 import com.example.wheat.form.CartUptadtForm;
 import com.example.wheat.vo.CartVo;
 import com.example.wheat.vo.ResponseVo;
 import io.swagger.models.auth.In;
+
+import java.util.List;
 
 /**
  * <p>
@@ -70,5 +73,13 @@ public interface CartService {
      * @return
      */
     ResponseVo<Integer> sum(Integer uid);
+
+
+    /**
+     * 获取购物车
+     * @param uid
+     * @return
+     */
+    List<Cart> listForCart(Integer uid);
 
 }

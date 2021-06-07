@@ -26,4 +26,12 @@ public interface ProductMapper extends BaseMapper<Product> {
             + "</foreach> "
             +")</script>")
     List<Product> selectByCategoryIdSet(@Param("categoryIdSet") Set<Integer> categoryIdSet);
+
+    @Select("<script>" +
+            "select * from product where status = 1 and id in("
+            +"<foreach collection='productIdSet' separator=',' item='item'>"
+            + "#{item} "
+            + "</foreach> "
+            +")</script>")
+    List<Product> selectByProductIdSet(@Param("productIdSet") Set<Integer> productIdSet);
 }

@@ -23,4 +23,7 @@ public interface ShippingMapper extends BaseMapper<Shipping> {
 
     @Select("SELECT * FROM shipping where user_id = #{uid,jdbcType=VARCHAR}")
     List<Shipping> selectByUid(Integer uid);
+
+    @Select("SELECT * FROM shipping where user_id = #{uid,jdbcType=VARCHAR} and shipping_id = #{shippingId,jdbcType=VARCHAR}")
+    Shipping selectByUidAndShippingId(@Param("uid") Integer uid,@Param("shippingId") Integer shippingId);
 }
