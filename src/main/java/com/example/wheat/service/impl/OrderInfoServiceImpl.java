@@ -186,6 +186,25 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         return ResponseVo.success (orderVo);
     }
 
+    @Override
+    public ResponseVo<OrderVo> cance(Integer uid, Long orderNo) {
+        OrderInfo order = orderInfoMapper.selectByOrderNo(orderNo);
+        if (order == null || !order.getUserId().equals(uid)){
+            return ResponseVo.error(ResponseEnum.ORDER_NOT_EXIST);
+        }
+        //只有[未付款]订单可以取消，看具体公司业务
+        if (!order.getStatus().equals(OrderStatusEnum.NO_PAY.getCode())) {
+            return ResponseVo.error(ResponseEnum.ORDER_STATUS_ERROR) ;
+        }
+        order. setStatus(OrderStatusEnum.CANCELED.getCode());
+        order.setCloseTime(new Date());
+        int row = orderInfoMapper.updateById(order);
+        if(row <= 0){
+            return ResponseVo.error(ResponseEnum.ERROR) ;
+        }
+        return ResponseVo.success();
+    }
+
     private OrderVo build0rderInfoVo(OrderInfo orderInfo, List<OrderItem> orderItemList, Shipping shipping) {
         OrderVo orderVo = new OrderVo();
         BeanUtils.copyProperties(orderInfo,orderVo);

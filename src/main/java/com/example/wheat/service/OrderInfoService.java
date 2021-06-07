@@ -41,4 +41,14 @@ public interface OrderInfoService extends IService<OrderInfo> {
      */
     ResponseVo<OrderVo> detail(Integer uid, Long orderNo);
 
+    /**
+     * 取消订单
+     * @param uid
+     * @param orderNo
+     * @return
+     */
+    ResponseVo<OrderVo> cance(Integer uid, Long orderNo);
+
+
+
 }

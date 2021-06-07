@@ -36,6 +36,8 @@ public enum ResponseEnum {
 
     ORDER_NOT_EXIST(19,"订单不存在"),
 
+    ORDER_STATUS_ERROR(20,"订单状态有误"),
+
     ;
 
     Integer code;
