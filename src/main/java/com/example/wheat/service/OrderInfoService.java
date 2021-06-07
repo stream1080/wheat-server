@@ -22,7 +22,7 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @param shippingId
      * @return
      */
-    ResponseVo<OrderInfo> create(Integer uid,Integer shippingId);
+    ResponseVo<OrderVo> create(Integer uid,Integer shippingId);
 
     /**
      * 查询订单列表
@@ -47,7 +47,7 @@ public interface OrderInfoService extends IService<OrderInfo> {
      * @param orderNo
      * @return
      */
-    ResponseVo<OrderVo> cance(Integer uid, Long orderNo);
+    ResponseVo<OrderVo> cancel(Integer uid, Long orderNo);
 
 
 

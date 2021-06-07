@@ -57,7 +57,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
     @Override
     @Transactional
-    public ResponseVo<OrderInfo> create(Integer uid, Integer shippingId) {
+    public ResponseVo<OrderVo> create(Integer uid, Integer shippingId) {
 
         //收货地址校验(总之要查出来的)
         Shipping shipping = shippingMapper.selectByUidAndShippingId(uid,shippingId);
@@ -187,7 +187,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     }
 
     @Override
-    public ResponseVo<OrderVo> cance(Integer uid, Long orderNo) {
+    public ResponseVo<OrderVo> cancel(Integer uid, Long orderNo) {
         OrderInfo order = orderInfoMapper.selectByOrderNo(orderNo);
         if (order == null || !order.getUserId().equals(uid)){
             return ResponseVo.error(ResponseEnum.ORDER_NOT_EXIST);
