@@ -1,5 +1,6 @@
 package com.example.wheat.mapper;
 
+import com.example.wheat.entity.OrderItem;
 import com.example.wheat.entity.Shipping;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Delete;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -26,4 +28,12 @@ public interface ShippingMapper extends BaseMapper<Shipping> {
 
     @Select("SELECT * FROM shipping where user_id = #{uid,jdbcType=VARCHAR} and shipping_id = #{shippingId,jdbcType=VARCHAR}")
     Shipping selectByUidAndShippingId(@Param("uid") Integer uid,@Param("shippingId") Integer shippingId);
+
+    @Select("<script>" +
+            "select * from shipping where id in("
+            +"<foreach collection='idSet' separator=',' item='item'>"
+            + "#{item} "
+            + "</foreach> "
+            +")</script>")
+    List<Shipping> selectByIdSet(@Param("idSet") Set idSet);
 }
