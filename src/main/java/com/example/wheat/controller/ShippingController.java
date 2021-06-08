@@ -25,12 +25,13 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/shipping")
 @Api(tags = "收货地址模块API")
+@CrossOrigin
 public class ShippingController {
 
     @Autowired
     private ShippingService shippingService;
 
-    @GetMapping(" /list")
+    @GetMapping("/list")
     @ApiOperation(value = "分页查询收货地址列表")
     public ResponseVo list (@RequestParam(required = false, defaultValue = "1") Integer pageNum,
                             @RequestParam(required = false, defaultValue = "10") Integer pageSize,

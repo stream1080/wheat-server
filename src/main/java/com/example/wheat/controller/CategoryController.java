@@ -7,6 +7,7 @@ import com.example.wheat.vo.ResponseVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/category")
 @Api(tags = "分类模块API")
+@CrossOrigin
 public class CategoryController {
 
     @Autowired

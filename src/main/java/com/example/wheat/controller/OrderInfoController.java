@@ -27,6 +27,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/order")
 @Api(tags = "订单模块API")
+@CrossOrigin
 public class OrderInfoController {
 
     @Autowired

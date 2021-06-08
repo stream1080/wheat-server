@@ -93,9 +93,9 @@ class WheatApplicationTests {
 
 
     @Test
-    void addredis() {
+    void addCart() {
         CartAddForm cartAddForm = new CartAddForm();
-        cartAddForm.setProductId(3);
+        cartAddForm.setProductId(1);
         cartAddForm.setSelected(true);
         cartService.add(1,cartAddForm);
     }

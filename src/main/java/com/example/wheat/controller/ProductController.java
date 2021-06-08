@@ -11,11 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +25,8 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/product")
-@Api(tags = "商品API") // 类文档显示内容
+@Api(tags = "商品模块API") // 类文档显示内容
+@CrossOrigin
 public class ProductController {
 
     @Autowired

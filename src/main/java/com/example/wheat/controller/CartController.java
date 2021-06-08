@@ -11,6 +11,7 @@ import com.example.wheat.vo.ResponseVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,8 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/carts")
 @Api(tags = "购物车模块API")
+@CrossOrigin
+@Slf4j
 public class CartController {
 
     @Autowired
@@ -45,6 +48,7 @@ public class CartController {
     public ResponseVo<CartVo> add(@Valid @RequestBody CartAddForm cartAddForm,
                                   HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
+        log.info("cartAddForm = {}"+cartAddForm);
         return cartService.add(user.getId(),cartAddForm);
     }
 
