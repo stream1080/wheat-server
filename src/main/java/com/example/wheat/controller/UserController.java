@@ -34,6 +34,7 @@ import static com.example.wheat.enums.ResponseEnum.PARAM_ERROR;
 @RequestMapping("/user")
 @Slf4j
 @Api(tags = "用户模块API")
+@CrossOrigin
 public class UserController {
 
     @Autowired
