@@ -88,9 +88,9 @@ public class UserController {
     public ResponseVo<User> userInfo(HttpSession session)  {
         log.info("getuser sessionId= {}",session.getId());
         User user = (User)session.getAttribute(WheatConst.CURRENT_USER);
-        if (user == null) {
-            return ResponseVo.error(NEED_LOGIN);
-        }
+//        if (user == null) {
+//            return ResponseVo.error(NEED_LOGIN);
+//        }
         return ResponseVo.success(user);
     }
 
@@ -99,9 +99,9 @@ public class UserController {
     public ResponseVo<User> logout(HttpSession session)  {
         log.info("getuser sessionId= {}",session.getId());
         User user = (User)session.getAttribute(WheatConst.CURRENT_USER);
-        if (user == null) {
-            return ResponseVo.error(NEED_LOGIN);
-        }
+//        if (user == null) {
+//            return ResponseVo.error(NEED_LOGIN);
+//        }
         session.removeAttribute(WheatConst.CURRENT_USER);
         return ResponseVo.success();
     }

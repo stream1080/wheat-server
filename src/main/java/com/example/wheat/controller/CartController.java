@@ -5,6 +5,7 @@ import com.example.wheat.conts.WheatConst;
 import com.example.wheat.entity.User;
 import com.example.wheat.form.CartAddForm;
 import com.example.wheat.form.CartUptadtForm;
+import com.example.wheat.mapper.UserMapper;
 import com.example.wheat.service.CartService;
 import com.example.wheat.vo.CartVo;
 import com.example.wheat.vo.ResponseVo;
@@ -36,19 +37,24 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @GetMapping("/list")
     @ApiOperation(value = "购物车商品列表")
     public ResponseVo<CartVo> list(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
+        user = userMapper.selectById(5);
         return cartService.list(user.getId());
     }
 
     @PostMapping("/add")
     @ApiOperation(value = "添加购物车商品")
-    public ResponseVo<CartVo> add(@Valid @RequestBody CartAddForm cartAddForm,
+    public ResponseVo<CartVo> add(@Valid @RequestBody CartAddForm cartAddForm, Integer userId,
                                   HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
         log.info("cartAddForm = {}"+cartAddForm);
+        user = userMapper.selectById(5);
         return cartService.add(user.getId(),cartAddForm);
     }
 
