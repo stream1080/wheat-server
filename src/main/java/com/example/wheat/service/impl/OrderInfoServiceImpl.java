@@ -111,8 +111,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
             if(row<=0){
                 return ResponseVo.error(ResponseEnum.ERROR);
             }
-
-
         }
 
         OrderInfo orderInfo = build0rder(uid, orderNo, shippingId, orderItemList);
@@ -138,8 +136,8 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         }
 
         //构造orderInfoVo;
-        build0rderInfoVo(orderInfo,orderItemList , shipping);
-        return ResponseVo.success();
+        OrderVo orderVo = build0rderInfoVo(orderInfo,orderItemList , shipping);
+        return ResponseVo.success(orderVo);
     }
 
     @Override

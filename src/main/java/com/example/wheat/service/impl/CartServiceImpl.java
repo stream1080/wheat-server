@@ -125,7 +125,7 @@ public class CartServiceImpl implements CartService {
                 }
                 //计算总价，只计算选中的
                 if (cart.getSelected()){
-                    cartTotalPrice.add(cartProductVo.getTotalPrice());
+                    cartTotalPrice = cartTotalPrice.add(cartProductVo.getTotalPrice());
                 }
             }
             cartTotalQuantity += cart.getQuantity();

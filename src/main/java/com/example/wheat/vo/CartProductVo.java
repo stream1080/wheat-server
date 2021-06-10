@@ -12,16 +12,12 @@ import java.util.Date;
 @Data
 public class CartProductVo {
 
-    @ApiModelProperty(value = "商品id")
     private Integer id;
 
-    @ApiModelProperty(value = "购买数量")
     private Integer quantity; //购买数量
 
-    @ApiModelProperty(value = "商品名称")
     private String name;
 
-    @ApiModelProperty(value = "商品副标题")
     private String subtitle;
 
     private String mainImage;

@@ -28,7 +28,6 @@ import javax.validation.Valid;
  * @since 2021-06-04
  */
 @RestController
-@RequestMapping("/carts")
 @Api(tags = "购物车模块API")
 @CrossOrigin
 @Slf4j
@@ -40,7 +39,7 @@ public class CartController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/list")
+    @GetMapping("/carts")
     @ApiOperation(value = "购物车商品列表")
     public ResponseVo<CartVo> list(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
@@ -48,7 +47,7 @@ public class CartController {
         return cartService.list(user.getId());
     }
 
-    @PostMapping("/add")
+    @PostMapping("/carts")
     @ApiOperation(value = "添加购物车商品")
     public ResponseVo<CartVo> add(@Valid @RequestBody CartAddForm cartAddForm, Integer userId,
                                   HttpSession session){
@@ -58,41 +57,45 @@ public class CartController {
         return cartService.add(user.getId(),cartAddForm);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/carts/{productId}")
     @ApiOperation(value = "更新购物车商品")
     public ResponseVo<CartVo> update(@PathVariable Integer productId,
                                      @Valid @RequestBody CartUptadtForm cartUptadtForm,
                                   HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
+        user = userMapper.selectById(5);
         return cartService.update(user.getId(),productId,cartUptadtForm);
     }
 
-    @DeleteMapping("/del")
+    @DeleteMapping("/carts/{productId}")
     @ApiOperation(value = "删除购物车商品")
     public ResponseVo<CartVo> delete(@PathVariable Integer productId,
                                      HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
+        user = userMapper.selectById(5);
         return cartService.delete(user.getId(),productId);
     }
 
-    @PutMapping("/all")
+    @PutMapping("/carts/selectAll")
     @ApiOperation(value = "全选购物车商品")
     public ResponseVo<CartVo> selectAll(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
         return cartService.selectAll(user.getId());
     }
 
-    @PutMapping("/unall")
+    @PutMapping("/carts/unSelectAll")
     @ApiOperation(value = "全不选购物车商品")
     public ResponseVo<CartVo> unSelectAll(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
+        user = userMapper.selectById(5);
         return cartService.unSelectAll(user.getId());
     }
 
-    @GetMapping("/sum")
+    @GetMapping("/carts/products/sum")
     @ApiOperation(value = "购物车商品总数")
     public ResponseVo<Integer> sum(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
+        user = userMapper.selectById(5);
         return cartService.sum(user.getId());
     }
 
