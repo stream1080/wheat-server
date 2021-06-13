@@ -43,7 +43,6 @@ public class CartController {
     @ApiOperation(value = "购物车商品列表")
     public ResponseVo<CartVo> list(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return cartService.list(user.getId());
     }
 
@@ -53,7 +52,6 @@ public class CartController {
                                   HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
         log.info("cartAddForm = {}"+cartAddForm);
-        user = userMapper.selectById(5);
         return cartService.add(user.getId(),cartAddForm);
     }
 
@@ -63,7 +61,6 @@ public class CartController {
                                      @Valid @RequestBody CartUptadtForm cartUptadtForm,
                                   HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return cartService.update(user.getId(),productId,cartUptadtForm);
     }
 
@@ -72,7 +69,6 @@ public class CartController {
     public ResponseVo<CartVo> delete(@PathVariable Integer productId,
                                      HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return cartService.delete(user.getId(),productId);
     }
 
@@ -87,7 +83,6 @@ public class CartController {
     @ApiOperation(value = "全不选购物车商品")
     public ResponseVo<CartVo> unSelectAll(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return cartService.unSelectAll(user.getId());
     }
 
@@ -95,9 +90,7 @@ public class CartController {
     @ApiOperation(value = "购物车商品总数")
     public ResponseVo<Integer> sum(HttpSession session){
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return cartService.sum(user.getId());
     }
-
 }
 

@@ -41,7 +41,6 @@ public class OrderInfoController {
     public ResponseVo<OrderVo> create(@Valid @RequestBody OrderCreateForm form,
                                       HttpSession session) {
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return orderInfoService.create(user.getId(),form.getShippingId());
     }
 
@@ -51,7 +50,6 @@ public class OrderInfoController {
                                       @RequestParam Integer pageSize ,
                                       HttpSession session) {
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return orderInfoService.list(user.getId(),pageNum,pageSize);
     }
 
@@ -69,7 +67,6 @@ public class OrderInfoController {
     public ResponseVo<OrderVo> cancel(@PathVariable Long orderNo,
                                       HttpSession session) {
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return orderInfoService.cancel(user.getId(),orderNo);
     }
 

@@ -49,6 +49,4 @@ public interface OrderInfoService extends IService<OrderInfo> {
      */
     ResponseVo<OrderVo> cancel(Integer uid, Long orderNo);
 
-
-
 }

@@ -18,7 +18,16 @@ import java.util.Set;
  */
 public interface CategoryService extends IService<Category> {
 
+    /**
+     * 查询商品三级分类
+     * @return
+     */
     ResponseVo<List<CategoryVo>> selectAll();
 
+    /**
+     * 查询子目录
+     * @param id
+     * @param resultSet
+     */
     void findSubCategoryId(Integer id, Set<Integer> resultSet);
 }

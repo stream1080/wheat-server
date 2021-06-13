@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public ResponseVo<User> register(User user) {
-//        error();
+//        error(); //测试异常处理
         //用户名username不能重复
         int countByUsername = userMapper.countByUsername(user.getUsername());
         if(countByUsername > 0 ){
@@ -74,6 +74,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return ResponseVo.success();
     }
 
+    /**
+     * 登录
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public ResponseVo<User> login(String username, String password) {
         User user = userMapper.seletByUsername(username);
@@ -95,9 +101,4 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 //        throw new RuntimeException("意外错误");
 //    }
 
-
-
-    public List<User> getUserList() {
-        return userMapper.selectList(null);
-    }
 }

@@ -31,6 +31,4 @@ public interface UserService extends IService<User> {
      */
     ResponseVo<User> login(String username, String password);
 
-    List<User> getUserList();
-
 }

@@ -18,6 +18,11 @@ import java.util.Set;
  */
 public interface OrderItemMapper extends BaseMapper<OrderItem> {
 
+    /**
+     * 通过orderNo批量查询订单列表
+     * @param orderNoSet
+     * @return
+     */
     @Select("<script>" +
             "select * from order_info where order_no in("
             +"<foreach collection='orderNoSet' separator=',' item='item'>"

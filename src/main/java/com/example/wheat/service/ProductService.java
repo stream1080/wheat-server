@@ -20,7 +20,19 @@ import java.util.List;
  */
 public interface ProductService extends IService<Product> {
 
+    /**
+     * 分页查询商品信息
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize);
 
+    /**
+     * 查询商品详情
+     * @param ProductId
+     * @return
+     */
     ResponseVo<ProductDetailVo> detail(Integer ProductId);
 }

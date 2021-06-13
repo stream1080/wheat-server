@@ -40,7 +40,6 @@ public class ShippingController {
                             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
                             HttpSession session) {
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return shippingService.list(user.getId(), pageNum, pageSize);
     }
 
@@ -49,7 +48,6 @@ public class ShippingController {
     public ResponseVo add(@Valid @RequestBody ShippingForm form,
                            HttpSession session) {
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER) ;
-        user = userMapper.selectById(5);
         return shippingService.add(user.getId(),form);
     }
 
@@ -58,7 +56,6 @@ public class ShippingController {
     public ResponseVo delete(@PathVariable Integer shippingId,
                              HttpSession session) {
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return shippingService.delete(user.getId(),shippingId);
     }
 
@@ -69,7 +66,6 @@ public class ShippingController {
                               @Valid @RequestBody ShippingForm form,
                               HttpSession session) {
         User user = (User) session.getAttribute (WheatConst.CURRENT_USER);
-        user = userMapper.selectById(5);
         return shippingService.update(user.getId(),shippingId,form);
     }
 

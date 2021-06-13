@@ -19,9 +19,19 @@ import java.util.Set;
  */
 public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
 
+    /**
+     * 通过user_id查询订单
+     * @param uid
+     * @return
+     */
     @Select("SELECT * FROM order_info where user_id = #{uid,jdbcType=VARCHAR}")
     List<OrderInfo> selectByUid(Integer uid);
 
+    /**
+     * 通过order_no查询订单
+     * @param orderNo
+     * @return
+     */
     @Select("SELECT * FROM order_info where order_no = #{orderNo,jdbcType=VARCHAR}")
     OrderInfo selectByOrderNo(Long orderNo);
 
