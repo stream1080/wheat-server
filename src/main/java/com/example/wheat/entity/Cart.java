@@ -1,9 +1,7 @@
 package com.example.wheat.entity;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.math.BigDecimal;
 
 @Data
 public class Cart {

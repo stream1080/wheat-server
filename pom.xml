@@ -67,7 +67,7 @@
             <version>2.0</version>
         </dependency>
 
-<!--        swagger-bootstrap-ui-->
+<!--        swagger2-bootstrap-ui-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
@@ -80,8 +80,6 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
         </dependency>
-
-
 
         <dependency>
             <groupId>javax.validation</groupId>

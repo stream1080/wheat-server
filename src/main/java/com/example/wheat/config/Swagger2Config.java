@@ -1,5 +1,6 @@
 package com.example.wheat.config;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration // 告诉Spring容器，这个类是一个配置类
 @EnableSwagger2 // 启用Swagger2功能
+@EnableSwaggerBootstrapUI
 public class Swagger2Config {
 
     /**
@@ -28,6 +30,8 @@ public class Swagger2Config {
 
     /**
      * API文档地址：http://127.0.0.1:8080/swagger-ui.html#/
+     *
+     * SwaggerBootstrapUI : http://127.0.0.1:8080/doc.html
      *
      * 此处主要是API文档页面显示信息
      */
