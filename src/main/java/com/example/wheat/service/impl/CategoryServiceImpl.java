@@ -45,8 +45,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             }
         }
 
-
-
 //        //lambda + stream
 //        List<CategoryVo> categoryVoList = categories.stream()
 //                .filter(e -> e.getParentId().equals(ROOT_PARENT_ID))
@@ -58,6 +56,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
         return ResponseVo.success(categoryVoList);
     }
+
+
+
 
     @Override
     public void findSubCategoryId(Integer id, Set<Integer> resultSet) {
