@@ -11,6 +11,7 @@ import com.example.wheat.mapper.ShippingMapper;
 import com.example.wheat.mapper.UserMapper;
 import com.example.wheat.service.*;
 import com.example.wheat.vo.CartVo;
+import com.example.wheat.vo.CategoryVo;
 import com.example.wheat.vo.ProductVo;
 import com.example.wheat.vo.ResponseVo;
 import com.github.pagehelper.PageInfo;
@@ -71,6 +72,13 @@ class WheatApplicationTests {
         categoryService.findSubCategoryId(2,set);
         log.info("Set={}",set);
 
+    }
+
+    @Test
+    void CategoryCache() {
+        for (int i = 0; i < 5; i++) {
+            categoryService.selectAll();
+        }
     }
 
 

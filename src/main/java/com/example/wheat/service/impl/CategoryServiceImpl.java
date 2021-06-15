@@ -6,9 +6,14 @@ import com.example.wheat.service.CategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.wheat.vo.CategoryVo;
 import com.example.wheat.vo.ResponseVo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import jdk.nashorn.internal.parser.Token;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -31,8 +36,29 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    private Gson gson = new Gson();
+
+
+
     @Override
     public ResponseVo<List<CategoryVo>> selectAll() {
+        String categoryJson = stringRedisTemplate.opsForValue().get("category");
+        if (StringUtils.isEmpty(categoryJson)) {
+            List<CategoryVo> categoryVoList = selectAllFromDb();
+            stringRedisTemplate.opsForValue().set("category",gson.toJson(categoryVoList));
+            return ResponseVo.success(categoryVoList);
+        }
+        List<CategoryVo> categoryVoList = gson.fromJson(categoryJson,new TypeToken<List<CategoryVo>>(){}.getType());
+        return ResponseVo.success(categoryVoList);
+    }
+
+
+
+
+    public List<CategoryVo> selectAllFromDb() {
 
         List<Category> categories = categoryMapper.selectList(null);
 
@@ -45,7 +71,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             }
         }
 
-//        //lambda + stream
+//        //lambda + stream 查询根目录
 //        List<CategoryVo> categoryVoList = categories.stream()
 //                .filter(e -> e.getParentId().equals(ROOT_PARENT_ID))
 //                .map(e -> category2CategoryVo(e))
@@ -54,7 +80,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         //查询子目录
         findSubCategory(categoryVoList,categories);
 
-        return ResponseVo.success(categoryVoList);
+        return categoryVoList;
     }
 
 
