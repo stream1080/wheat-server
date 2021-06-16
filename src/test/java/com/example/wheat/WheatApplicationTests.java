@@ -89,6 +89,13 @@ class WheatApplicationTests {
         }
     }
 
+    @Test
+    void productlistCache()  {
+        for (int i = 0; i < 100; i++) {
+            productService.list(0,1,3);
+        }
+    }
+
 
     @Test
     @Transactional

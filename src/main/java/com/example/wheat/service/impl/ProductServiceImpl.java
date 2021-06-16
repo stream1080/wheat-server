@@ -57,8 +57,33 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     private Gson gson = new Gson();
 
+
     @Override
     public ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize) {
+        //将categoryId+pageNum+pageSize拼接成一个key，作为缓存分页数据的key
+        String redisKey = String.valueOf(categoryId) + String.valueOf(pageNum) + String.valueOf(pageSize);
+
+        String pageInfoJson = stringRedisTemplate.opsForValue().get(redisKey);
+        if(StringUtils.isEmpty(pageInfoJson)){
+            PageInfo pageInfo = listFromDb(categoryId,pageNum,pageSize);
+            String s = gson.toJson(pageInfo);
+            stringRedisTemplate.opsForValue().set(redisKey,s,5, TimeUnit.MINUTES);
+            return ResponseVo.success(pageInfo);
+        }
+
+        PageInfo pageInfo = gson.fromJson(pageInfoJson,PageInfo.class);
+        return ResponseVo.success(pageInfo);
+    }
+
+
+    /**
+     * 从数据库中分页查询商品列表
+     * @param categoryId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo listFromDb(Integer categoryId, Integer pageNum, Integer pageSize) {
         Set<Integer> categoryIdSet = new HashSet<>();
         if (categoryId != null) {
             categoryService.findSubCategoryId(categoryId,categoryIdSet);
@@ -78,7 +103,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
         PageInfo pageInfo = new PageInfo<>(productList);
         pageInfo.setList(productVoList);
-        return ResponseVo.success(pageInfo);
+        return pageInfo;
     }
 
 
