@@ -75,9 +75,10 @@ class WheatApplicationTests {
     }
 
     @Test
-    void CategoryCache() {
-        for (int i = 0; i < 5; i++) {
-            categoryService.selectAll();
+    void CategoryCache()  {
+
+        for (int i = 0; i < 100; i++) {
+           categoryService.selectAll();
         }
     }
 
@@ -144,7 +145,5 @@ class WheatApplicationTests {
         log.info("result={}",responseVo);
 //        Assert.assertEquals(ResponseEnum. SUCCESS. getCode(), responseVo. getStatus());
     }
-
-
 
 }

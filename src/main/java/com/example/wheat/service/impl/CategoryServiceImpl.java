@@ -15,10 +15,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.wheat.conts.WheatConst.ROOT_PARENT_ID;
 
@@ -46,30 +44,41 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public ResponseVo<List<CategoryVo>> selectAll() {
         String categoryJson = stringRedisTemplate.opsForValue().get("category");
+        //如果缓存中没有，查数据库
         if (StringUtils.isEmpty(categoryJson)) {
             List<CategoryVo> categoryVoList = selectAllFromDb();
-            stringRedisTemplate.opsForValue().set("category",gson.toJson(categoryVoList));
+            System.out.println("查数据库");
+            if (StringUtils.isEmpty(categoryVoList)) {
+                //库中没有此数据，存入一个空值,过期时间为5分钟,解决缓存穿透问题
+                stringRedisTemplate.opsForValue().set("category","",5, TimeUnit.MINUTES);
+            }
             return ResponseVo.success(categoryVoList);
         }
         List<CategoryVo> categoryVoList = gson.fromJson(categoryJson,new TypeToken<List<CategoryVo>>(){}.getType());
+        System.out.println("查缓存");
         return ResponseVo.success(categoryVoList);
     }
 
 
-
-
     public List<CategoryVo> selectAllFromDb() {
-
-        List<Category> categories = categoryMapper.selectList(null);
-
-        List<CategoryVo> categoryVoList = new ArrayList<>();
-        for(Category category : categories){
-            if(category.getParentId().equals((ROOT_PARENT_ID))){
-                CategoryVo categoryVo = new CategoryVo();
-                BeanUtils.copyProperties(category,categoryVo);
-                categoryVoList.add(categoryVo);
+        //加本地锁，解决缓存击穿
+        synchronized (this){
+            //得到锁后，应该再去缓存中确定一次，没有才需要继续查询
+            String categoryJson = stringRedisTemplate.opsForValue().get("category");
+            if (!StringUtils.isEmpty(categoryJson)) {
+//                如果缓存不为空，则之间返回
+                List<CategoryVo> categoryVoList = gson.fromJson(categoryJson,new TypeToken<List<CategoryVo>>(){}.getType());
+                return categoryVoList;
             }
-        }
+            List<Category> categories = categoryMapper.selectList(null);
+            List<CategoryVo> categoryVoList = new ArrayList<>();
+            for(Category category : categories){
+                if(category.getParentId().equals((ROOT_PARENT_ID))){
+                    CategoryVo categoryVo = new CategoryVo();
+                    BeanUtils.copyProperties(category,categoryVo);
+                    categoryVoList.add(categoryVo);
+                }
+            }
 
 //        //lambda + stream 查询根目录
 //        List<CategoryVo> categoryVoList = categories.stream()
@@ -77,13 +86,18 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 //                .map(e -> category2CategoryVo(e))
 //                .collect(Collectors.toList());
 
-        //查询子目录
-        findSubCategory(categoryVoList,categories);
+            //查询子目录
+            findSubCategory(categoryVoList,categories);
 
-        return categoryVoList;
+            //查到结果后将结果序列化，写入缓存，并设置一个随机的过期时间，解决缓存雪崩问题
+            //生成5-15之间的一个随机数,设置缓存随机在5-15分钟内过期
+            Random random = new Random();
+            int randomNum = random.nextInt(10)+5;
+            stringRedisTemplate.opsForValue().set("category",gson.toJson(categoryVoList),randomNum,TimeUnit.MINUTES);
+
+            return categoryVoList;
+        }
     }
-
-
 
 
     @Override
