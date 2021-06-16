@@ -82,6 +82,13 @@ class WheatApplicationTests {
         }
     }
 
+    @Test
+    void productByIdCache()  {
+        for (int i = 0; i < 100; i++) {
+            productService.detail(2);
+        }
+    }
+
 
     @Test
     @Transactional

@@ -47,7 +47,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         //如果缓存中没有，查数据库
         if (StringUtils.isEmpty(categoryJson)) {
             List<CategoryVo> categoryVoList = selectAllFromDb();
-            System.out.println("查数据库");
             if (StringUtils.isEmpty(categoryVoList)) {
                 //库中没有此数据，存入一个空值,过期时间为5分钟,解决缓存穿透问题
                 stringRedisTemplate.opsForValue().set("category","",5, TimeUnit.MINUTES);
@@ -55,7 +54,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             return ResponseVo.success(categoryVoList);
         }
         List<CategoryVo> categoryVoList = gson.fromJson(categoryJson,new TypeToken<List<CategoryVo>>(){}.getType());
-        System.out.println("查缓存");
         return ResponseVo.success(categoryVoList);
     }
 
