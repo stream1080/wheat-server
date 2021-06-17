@@ -89,6 +89,7 @@ public class CartController {
     @GetMapping("/carts/products/sum")
     @ApiOperation(value = "购物车商品总数")
     public ResponseVo<Integer> sum(HttpSession session){
+        log.info("购物车 sessionId = {}" + session.getId());
         User user = (User) session.getAttribute(WheatConst.CURRENT_USER);
         return cartService.sum(user.getId());
     }

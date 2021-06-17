@@ -83,7 +83,7 @@ public class UserController {
 
     //改进版：token+redis分布式session
     //cookies 跨越
-    @GetMapping("/getuser")
+    @GetMapping("/user")
     @ApiOperation(value = "获取用户信息")
     public ResponseVo<User> userInfo(HttpSession session)  {
         log.info("getuser sessionId= {}",session.getId());
