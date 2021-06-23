@@ -64,7 +64,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             //得到锁后，应该再去缓存中确定一次，没有才需要继续查询
             String categoryJson = stringRedisTemplate.opsForValue().get("category");
             if (!StringUtils.isEmpty(categoryJson)) {
-//                如果缓存不为空，则之间返回
+//                如果缓存不为空，则直接返回
                 List<CategoryVo> categoryVoList = gson.fromJson(categoryJson,new TypeToken<List<CategoryVo>>(){}.getType());
                 return categoryVoList;
             }

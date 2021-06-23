@@ -43,7 +43,7 @@ public class ShippingController {
         return shippingService.list(user.getId(), pageNum, pageSize);
     }
 
-    @PostMapping ("/shippings/{shippingId}")
+    @PostMapping ("/shippings")
     @ApiOperation(value = "添加收货地址")
     public ResponseVo add(@Valid @RequestBody ShippingForm form,
                            HttpSession session) {

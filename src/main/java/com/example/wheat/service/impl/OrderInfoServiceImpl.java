@@ -65,7 +65,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if (shipping == null) {
             return ResponseVo.error(ResponseEnum.SHIPPING_NOT_EXIST);
         }
-        //获取购物车，校验(是否有商品、库存)
+        //获取购物车，校验(是否有商品库存)
         List<Cart> cartList = cartService.listForCart(uid).stream()
                 .filter(Cart::getSelected)
                 .collect (Collectors.toList());
@@ -255,7 +255,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         item.setProductId(product.getId());
         item.setProductName(product.getName());
         item.setProductImage(product.getMainImage());
-        item.setCurrentUnitPrice( product . getPrice());
+        item.setCurrentUnitPrice(product.getPrice());
         item.setQuantity(quantity);
         item.setTotalprice(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
         return item;
