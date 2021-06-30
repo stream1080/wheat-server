@@ -82,6 +82,7 @@
             <scope>test</scope>
         </dependency>
 
+<!--        参数校验-->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -110,6 +111,13 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+        </dependency>
+
+        <!--jsoup解析网页,  tika包爬电影，音乐-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.13.1</version>
         </dependency>
 
     </dependencies>
