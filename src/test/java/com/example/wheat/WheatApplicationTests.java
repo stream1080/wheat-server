@@ -30,6 +30,7 @@ import java.util.Set;
 
 @SpringBootTest
 @Slf4j
+public
 class WheatApplicationTests {
 
     @Autowired
@@ -65,99 +66,99 @@ class WheatApplicationTests {
 ////        users.forEach(System.out::println);
 //    }
 
-    @Test
-    @Transactional
-    void findSubCategoryId() {
-        Set<Integer> set = new HashSet<>();
-        categoryService.findSubCategoryId(2,set);
-        log.info("Set={}",set);
-
-    }
-
-    @Test
-    void CategoryCache()  {
-
-        for (int i = 0; i < 100; i++) {
-           categoryService.selectAll();
-        }
-    }
-
-    @Test
-    void productByIdCache()  {
-        for (int i = 0; i < 100; i++) {
-            productService.detail(2);
-        }
-    }
-
-    @Test
-    void productlistCache()  {
-        for (int i = 0; i < 100; i++) {
-            productService.list(0,1,3);
-        }
-    }
-
-
-    @Test
-    @Transactional
-    void productTest() {
-        ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
-
-//        List<User> users = userMapper.selectList(null);
-//        responseVo.forEach(System.out::println);
-    }
-
-    @Test
-    @Transactional
-    void detail() {
-        ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
-//        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseVo.getStatus());
-        log.info("detail={}",responseVo.getStatus());
-    }
-
-
-    @Test
-    void addCart() {
-        CartAddForm cartAddForm = new CartAddForm();
-        cartAddForm.setProductId(1);
-        cartAddForm.setSelected(true);
-        cartService.add(1,cartAddForm);
-    }
-
-    @Test
-    public void testCart(){
-        ResponseVo<CartVo> list = cartService.list(1);
-        log.info("list={}",list);
-    }
-
-    @Test
-    public void testUpdate(){
-        CartUptadtForm form = new CartUptadtForm();
-        form.setQuantity(10);
-        ResponseVo<CartVo> responseVo = cartService.update(1,3,form);
-        log.info("list={}",new Gson().toJson(responseVo));
-    }
-
-    @Test
-    public void testDelete(){
-        ResponseVo<CartVo> responseVo = cartService.delete(1,3);
-        log.info("list={}",new Gson().toJson(responseVo));
-    }
-
-    @Test
-    public void addShipping() {
-        ShippingForm form = new ShippingForm();
-        form.setReceiverName ("廖师兄");
-        form.setReceiverAddress ("慕课网");
-        form.setReceiverCity("北京");
-        form.setReceiverMobile( "18812345678");
-        form.setReceiverPhone( "010123456");
-        form.setReceiverProvince("北京");
-        form.setReceiverDistrict("海淀区") ;
-        form.setReceiverZip( "000000") ;
-
-        ResponseVo<Map<String, Integer>> responseVo = shippingService.add(1,form);
-        log.info("result={}",responseVo);
-//        Assert.assertEquals(ResponseEnum. SUCCESS. getCode(), responseVo. getStatus());
-    }
+//    @Test
+//    @Transactional
+//    void findSubCategoryId() {
+//        Set<Integer> set = new HashSet<>();
+//        categoryService.findSubCategoryId(2,set);
+//        log.info("Set={}",set);
+//
+//    }
+//
+//    @Test
+//    void CategoryCache()  {
+//
+//        for (int i = 0; i < 100; i++) {
+//           categoryService.selectAll();
+//        }
+//    }
+//
+//    @Test
+//    void productByIdCache()  {
+//        for (int i = 0; i < 100; i++) {
+//            productService.detail(2);
+//        }
+//    }
+//
+//    @Test
+//    void productlistCache()  {
+//        for (int i = 0; i < 100; i++) {
+//            productService.list(0,1,3);
+//        }
+//    }
+//
+//
+//    @Test
+//    @Transactional
+//    void productTest() {
+//        ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
+//
+////        List<User> users = userMapper.selectList(null);
+////        responseVo.forEach(System.out::println);
+//    }
+//
+//    @Test
+//    @Transactional
+//    void detail() {
+//        ResponseVo<PageInfo> responseVo = productService.list(3, 1, 2);
+////        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseVo.getStatus());
+//        log.info("detail={}",responseVo.getStatus());
+//    }
+//
+//
+//    @Test
+//    void addCart() {
+//        CartAddForm cartAddForm = new CartAddForm();
+//        cartAddForm.setProductId(1);
+//        cartAddForm.setSelected(true);
+//        cartService.add(1,cartAddForm);
+//    }
+//
+//    @Test
+//    public void testCart(){
+//        ResponseVo<CartVo> list = cartService.list(1);
+//        log.info("list={}",list);
+//    }
+//
+//    @Test
+//    public void testUpdate(){
+//        CartUptadtForm form = new CartUptadtForm();
+//        form.setQuantity(10);
+//        ResponseVo<CartVo> responseVo = cartService.update(1,3,form);
+//        log.info("list={}",new Gson().toJson(responseVo));
+//    }
+//
+//    @Test
+//    public void testDelete(){
+//        ResponseVo<CartVo> responseVo = cartService.delete(1,3);
+//        log.info("list={}",new Gson().toJson(responseVo));
+//    }
+//
+//    @Test
+//    public void addShipping() {
+//        ShippingForm form = new ShippingForm();
+//        form.setReceiverName ("廖师兄");
+//        form.setReceiverAddress ("慕课网");
+//        form.setReceiverCity("北京");
+//        form.setReceiverMobile( "18812345678");
+//        form.setReceiverPhone( "010123456");
+//        form.setReceiverProvince("北京");
+//        form.setReceiverDistrict("海淀区") ;
+//        form.setReceiverZip( "000000") ;
+//
+//        ResponseVo<Map<String, Integer>> responseVo = shippingService.add(1,form);
+//        log.info("result={}",responseVo);
+////        Assert.assertEquals(ResponseEnum. SUCCESS. getCode(), responseVo. getStatus());
+//    }
 
 }
