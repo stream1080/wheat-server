@@ -9,6 +9,7 @@ import com.example.wheat.vo.CartVo;
 import com.example.wheat.vo.ResponseVo;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Slf4j
 @Transactional
+@DisplayName("收货地址模块单元测试")
 class ShippingServiceTest extends WheatApplicationTests {
 
     @Autowired
@@ -29,6 +31,7 @@ class ShippingServiceTest extends WheatApplicationTests {
 
     @Test
     @Transactional
+    @DisplayName("测试添加收货地址")
     void add() {
         ShippingForm form = new ShippingForm();
         form.setReceiverName ("张三");
@@ -47,6 +50,7 @@ class ShippingServiceTest extends WheatApplicationTests {
 
     @Test
     @Transactional
+    @DisplayName("测试删除收货地址")
     void delete() {
         ResponseVo delete = shippingService.delete(5, 1);
         assertEquals(ResponseEnum.SUCCESS.getCode(),delete.getStatus());
@@ -54,6 +58,7 @@ class ShippingServiceTest extends WheatApplicationTests {
 
     @Test
     @Transactional
+    @DisplayName("测试更新收货地址")
     void update() {
         ShippingForm form = new ShippingForm();
         form.setReceiverName ("张三");
@@ -70,6 +75,7 @@ class ShippingServiceTest extends WheatApplicationTests {
     }
 
     @Test
+    @DisplayName("测试查询收货地址")
     void list() {
         ResponseVo<PageInfo> list = shippingService.list(1, 1, 2);
         assertEquals(ResponseEnum.SUCCESS.getCode(),list.getStatus());
