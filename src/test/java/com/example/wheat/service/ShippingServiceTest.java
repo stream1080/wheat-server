@@ -65,10 +65,10 @@ class ShippingServiceTest extends WheatApplicationTests {
         form.setReceiverAddress ("上海徐汇");
         form.setReceiverCity("上海");
         form.setReceiverMobile( "18812345678");
-        form.setReceiverPhone( "010123456");
+        form.setReceiverPhone( "111111111");
         form.setReceiverProvince("上海");
-        form.setReceiverDistrict("徐汇区") ;
-        form.setReceiverZip( "000000") ;
+        form.setReceiverDistrict("徐汇区");
+        form.setReceiverZip( "111111") ;
         ResponseVo update = shippingService.update(5, 1, form);
         assertEquals(ResponseEnum.SUCCESS.getCode(),update.getStatus());
 
