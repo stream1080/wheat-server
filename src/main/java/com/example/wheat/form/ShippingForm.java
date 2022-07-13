@@ -17,7 +17,7 @@ public class ShippingForm {
     @ApiModelProperty(value = "收货固定电话")
     private String receiverPhone;
 
-    @NotBlank
+//    @NotBlank
     @ApiModelProperty(value = "收货移动电话")
     private String receiverMobile;
 
